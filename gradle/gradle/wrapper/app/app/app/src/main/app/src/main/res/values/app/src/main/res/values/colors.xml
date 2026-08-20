@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="maroon_primary">#721C24</color>
+    <color name="maroon_dark">#4A0E17</color>
+    <color name="antique_gold">#C59B27</color>
+    <color name="ivory_background">#FDFBF7</color>
+    <color name="text_dark">#261114</color>
+</resources>
