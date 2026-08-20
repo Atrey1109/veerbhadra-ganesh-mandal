@@ -1,0 +1,27 @@
+#!/bin/sh
+
+DIRNAME=""
+CL=$(echo "$0" | tr '\\' '/')
+case "$CL" in
+  /*) DIRNAME=$(dirname "$CL") ;;
+  *) DIRNAME=$(dirname "./$CL") ;;
+esac
+APP_HOME=$(cd "$DIRNAME" && pwd -P)
+
+if [ ! -d "$APP_HOME/gradle/wrapper" ]; then
+    mkdir -p "$APP_HOME/gradle/wrapper"
+fi
+
+if [ ! -e "$APP_HOME/gradle/wrapper/gradle-wrapper.jar" ]; then
+    curl -s -S --retry 3 -L -o "$APP_HOME/gradle/wrapper/gradle-wrapper.jar" "https://raw.githubusercontent.com/gradle/gradle/v8.4.0/gradle/wrapper/gradle-wrapper.jar"
+fi
+
+CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
+
+if [ -n "$JAVA_HOME" ] ; then
+    JAVACMD="$JAVA_HOME/bin/java"
+else
+    JAVACMD="java"
+fi
+
+exec "$JAVACMD" "-Dorg.gradle.appname=gradlew" -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
